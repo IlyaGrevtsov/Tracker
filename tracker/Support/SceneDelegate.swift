@@ -15,24 +15,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let vc = UINavigationController(rootViewController: TrackerViewController())
-        let statistics = UINavigationController(rootViewController: StatisticsViewController())
-        let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [vc, statistics]
-        window.rootViewController = tabBarController
+        window.rootViewController = TabBar()
         self.window = window
         window.makeKeyAndVisible()
-        
-        tabBarController.tabBar.barStyle = .default
-        vc.tabBarItem = UITabBarItem(title: "Трэкеры",
-                                     image: UIImage(systemName: "record.circle"),
-                                     tag: 0)
-        statistics.tabBarItem = UITabBarItem(title: "Статистика",
-                                     image: UIImage(systemName: "hare.fill"),
-                                     tag: 1)
-        tabBarController.tabBar.isTranslucent = false
-        
-                }
+        }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

@@ -9,6 +9,10 @@ import UIKit
 
 final class TrackerViewController: UIViewController {
 
+    private var categories: [TrackerCategory] = []
+    private var completedTrackers: [TrackerRecord] = []
+    private var currentCategories: [TrackerCategory] = []
+    
     private var dataFormater: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yy"
@@ -20,8 +24,8 @@ final class TrackerViewController: UIViewController {
         let addButton = UIBarButtonItem(
             image: buttonImage,
             style: .plain,
-            target: TrackerViewController.self,
-            action: nil
+            target: self,
+            action: #selector(addButtonTapped)
         )
         return addButton
     }()
@@ -37,6 +41,7 @@ final class TrackerViewController: UIViewController {
     
     private lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
+        datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
         datePicker.locale = Locale(identifier: "ru_RU")
         return datePicker
@@ -57,7 +62,6 @@ final class TrackerViewController: UIViewController {
         return placeholderImage
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -77,7 +81,7 @@ final class TrackerViewController: UIViewController {
         navigationItem.searchController = searchBar
         navigationItem.leftBarButtonItem = addButton
     }
-    
+    //MARK: -Placeholder
     private func setupPlaceholder() {
         view.addSubview(placeholderImage)
         view.addSubview(placeHolderText)
@@ -91,9 +95,25 @@ final class TrackerViewController: UIViewController {
             placeHolderText.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             placeHolderText.topAnchor.constraint(equalTo: placeholderImage.bottomAnchor, constant: 8)
         ])
-        
-//        placeholderImage.isHidden = true
-//        placeHolderText.isHidden = true
     }
-    
+    //MARK: -CollectionView
+//    private lazy var collectionView: UICollectionView = {
+//        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+//       view.register(TrackerCell.self, forCellWithReuseIdentifier: TrackerCell.reuseIdentifier)
+//        view.dataSource = self
+//        view.delegate = self
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//   }()
+        
+    //MARK: -Target
+   
+    @objc private func addButtonTapped () {
+        let createTrackerViewController = CreateTrackerViewController()
+        createTrackerViewController.navigationItem.title = "Создание трекера"
+        
+        let navigationController = UINavigationController(rootViewController: createTrackerViewController)
+        present(navigationController, animated: true, completion: nil)
+    }
 }
+//-MARK: -Extension
