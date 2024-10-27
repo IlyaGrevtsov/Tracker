@@ -11,7 +11,7 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
-
+    
     private let textFiled = UITextField()
     private let categoryButton = UIButton()
     private let schedule = UIButton()
@@ -23,7 +23,7 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
     private let categories = ["Категория", "Расписание"]
     private let cellIdentifier = "cell"
     var selectedDays: [weekDay: Bool] = [:]
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,7 +110,7 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
             containerView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
             containerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             containerView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.heightAnchor),
-
+            
             textFiled.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             textFiled.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
             textFiled.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 27),
@@ -121,13 +121,13 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
             tableView.topAnchor.constraint(equalTo: textFiled.bottomAnchor, constant: 24),
             tableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
-            ])
+        ])
     }
     
     //MARK: -target
     
     @objc private func createButtonTapped() {
-        guard let text = textFiled.text else { return }
+        guard textFiled.text != nil else { return }
         dismiss(animated: true)
     }
     @objc private func cancelButtonTapped() {

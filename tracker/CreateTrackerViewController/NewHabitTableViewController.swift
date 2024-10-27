@@ -11,7 +11,7 @@ final class NewHabitTableViewController: UITableViewCell {
 
     static let reuseIdentifier = "NewHabitTableViewCell"
     private let scheduleLabel = UILabel()
-    private let categoryLabel = UILabel()>
+    private let categoryLabel = UILabel()
     private let stackView = UIStackView()
     private let chevronImage = UIImageView(image: UIImage(systemName: "chevron.right"))
     
