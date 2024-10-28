@@ -7,7 +7,16 @@
 
 import UIKit
 
-final class NewHabitViewController: UIViewController, UITextFieldDelegate {
+final class NewHabitViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate {
+    
+    private lazy var collectionView: UICollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        view.register(.self, forCellWithReuseIdentifier: "cell")
+        view.dataSource = self
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
@@ -65,7 +74,7 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
         tableView.register(NewHabitTableViewController.self, forCellReuseIdentifier: NewHabitTableViewController.reuseIdentifier)
     }
     private func setupCreateButton() {
-        createButton.backgroundColor = Colors.buttonActive
+        createButton.backgroundColor = Colors.buttonInactive
         createButton.titleLabel?.font = .systemFont(ofSize: 16 , weight: .medium)
         createButton.setTitle("Создать", for: .normal)
         createButton.layer.cornerRadius = 16
@@ -90,12 +99,14 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
     //MARK: -Constainer
     private func constraint () {
         view.addSubview(scrollView)
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(containerView)
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(textFiled)
-        [scrollView, textFiled, containerView, tableView].forEach{
+        [textFiled, tableView, createButton, cancelButton].forEach{
             $0.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview($0)
+            containerView.addSubview($0)
         }
         
         NSLayoutConstraint.activate([
@@ -121,6 +132,17 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
             tableView.topAnchor.constraint(equalTo: textFiled.bottomAnchor, constant: 24),
             tableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            
+            createButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            createButton.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor),
+            createButton.heightAnchor.constraint(equalToConstant: 60),
+            createButton.widthAnchor.constraint(equalTo: cancelButton.widthAnchor),
+            
+            cancelButton.trailingAnchor.constraint(equalTo: createButton.leadingAnchor, constant: -8),
+            cancelButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            cancelButton.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor),
+            cancelButton.heightAnchor.constraint(equalToConstant: 60),
+        
         ])
     }
     
@@ -163,6 +185,9 @@ extension NewHabitViewController: UITableViewDataSource, UITableViewDelegate {
         }
         return cell
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }
@@ -173,5 +198,17 @@ extension NewHabitViewController: UITableViewDataSource, UITableViewDelegate {
             cell.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         }
     }
+    
+}
+extension NewHabitViewController: UICollectionViewDataSource, UICollectionViewFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        <#code#>
+    }
+    
     
 }

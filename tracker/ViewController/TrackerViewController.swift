@@ -67,6 +67,7 @@ final class TrackerViewController: UIViewController {
         view.backgroundColor = .white
         setupNavigationBar()
         setupPlaceholder()
+        setupCollectionView()
     }
     
     private func setupNavigationBar() {
@@ -97,14 +98,25 @@ final class TrackerViewController: UIViewController {
         ])
     }
     //MARK: -CollectionView
-//    private lazy var collectionView: UICollectionView = {
-//        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-//       view.register(TrackerCell.self, forCellWithReuseIdentifier: TrackerCell.reuseIdentifier)
-//        view.dataSource = self
-//        view.delegate = self
-//        view.translatesAutoresizingMaskIntoConstraints = false
-//        return view
-//   }()
+    private lazy var collectionView: UICollectionView = {
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.register(.self, forCellWithReuseIdentifier: "cell")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        return collectionView
+   }()
+    private func setupCollectionView() {
+        view.addSubview(collectionView)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            ])
+        }
+    
         
     //MARK: -Target
    

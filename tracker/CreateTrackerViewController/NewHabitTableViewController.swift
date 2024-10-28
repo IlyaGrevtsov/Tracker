@@ -17,6 +17,7 @@ final class NewHabitTableViewController: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupStackView()
     }
     
     required init?(coder: NSCoder) {
@@ -27,13 +28,13 @@ final class NewHabitTableViewController: UITableViewCell {
         backgroundColor = Colors.textFieldBackground
         stackView.axis = .vertical
         stackView.spacing = 2
+        chevronImage.tintColor = .gray
+        scheduleLabel.textColor = .gray
         
         stackView.addArrangedSubview(scheduleLabel)
         stackView.addArrangedSubview(categoryLabel)
         
-        [scheduleLabel, chevronImage].forEach { $0.backgroundColor = .gray}
-
-        contentView.addSubview(scheduleLabel)
+        contentView.addSubview(stackView)
         contentView.addSubview(chevronImage)
         
         [scheduleLabel, categoryLabel, chevronImage, stackView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
