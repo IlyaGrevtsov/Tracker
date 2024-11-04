@@ -7,12 +7,12 @@
 
 import UIKit
 
-final class TrackerViewController: UIViewController {
+final class TrackerViewController: UIViewController, UICollectionViewDelegate {
 
     private var categories: [TrackerCategory] = []
-    private var completedTrackers: [TrackerRecord] = []
+    private var completedTrackers: Set<TrackerRecord> = []
     private var currentCategories: [TrackerCategory] = []
-    
+    var currentDate: Date = Date()
     private var dataFormater: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yy"
@@ -68,6 +68,7 @@ final class TrackerViewController: UIViewController {
         setupNavigationBar()
         setupPlaceholder()
         setupCollectionView()
+        setupCollectionView()
     }
     
     private func setupNavigationBar() {
@@ -100,7 +101,7 @@ final class TrackerViewController: UIViewController {
     //MARK: -CollectionView
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.register(.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(TrackerCollectionViewCell.self, forCellWithReuseIdentifier: TrackerCollectionViewCell.cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -129,3 +130,92 @@ final class TrackerViewController: UIViewController {
     }
 }
 //-MARK: -Extension
+extension TrackerViewController: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return currentCategories.count
+    }
+    private func isSameTrackerRecord(trackerRecord: TrackerRecord, id: UUID) -> Bool {
+        let isSameDay = Calendar.current.isDate(trackerRecord.date, inSameDayAs: datePicker.date)
+        return trackerRecord.id == id && isSameDay
+    }
+    
+    private func isTrackerCompletedToday(id: UUID) -> Bool {
+        completedTrackers.contains {TrackerRecord in
+            isSameTrackerRecord(trackerRecord: TrackerRecord, id: id)
+        }
+    }
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TrackerCollectionViewCell.cellIdentifier, for: indexPath) as? TrackerCollectionViewCell else {
+            assertionFailure("Не удалось создать ячейку")
+            return UICollectionViewCell() }
+        guard indexPath.section < currentCategories.count else {
+            assertionFailure("Индекс секции вне диапозона")
+            return UICollectionViewCell()
+        }
+        let trakers = currentCategories[indexPath.section].trackers
+        guard indexPath.row < trakers.count else {
+            assertionFailure("Индекс строки вне диапозона")
+            return UICollectionViewCell()
+        }
+        let tracker = currentCategories[indexPath.section].trackers[indexPath.row]
+        //        cell.delegate = self
+        let isCompletedToDay = isTrackerCompletedToday(id: tracker.id)
+        let completedDay = completedTrackers.filter {
+            $0.id == tracker.id
+        }.count
+        
+        cell.configure(
+            with: tracker,
+            trackersIsCompleted: isCompletedToDay,
+            completedDays: completedDay,
+            indexPath: indexPath)
+        return cell
+    }
+}
+extension TrackerViewController: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 9
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let elementPerRows: CGFloat = 2
+        let paddingSpace: CGFloat = 9
+        let avalibleWidth: CGFloat = collectionView.bounds.width - paddingSpace
+        let widthPerItem: CGFloat = avalibleWidth / elementPerRows
+        return CGSize(width: widthPerItem, height: 148)
+    }
+}
+    extension TrackerViewController: TrackerViewCellDelegate {
+        func completeTracker(id: UUID, at indexPath: IndexPath) {
+            if currentDate <= Date() {
+                let trackerRecord = TrackerRecord(id: id, date: datePicker.date)
+                completedTrackers.insert(trackerRecord)
+                collectionView.reloadItems(at: [indexPath])
+            }
+        }
+        func uncompleteTracker(id: UUID, at indexPath: IndexPath) {
+            completedTrackers = completedTrackers.filter { trackerRecord in
+                !isSameTrackerRecord(trackerRecord: trackerRecord, id: id)
+            }
+            collectionView.reloadItems(at: [indexPath])
+        }
+        
+        func record(_ sender: Bool, _ cell: TrackerCollectionViewCell) {
+            guard let indexPath = collectionView.indexPath(for: cell) else { return }
+            let id = currentCategories[indexPath.section].trackers[indexPath.row].id
+            let newRecord = TrackerRecord(id: id, date: currentDate)
+            
+            switch sender {
+            case true:
+                completedTrackers.insert(newRecord)
+            case false:
+                completedTrackers.remove(newRecord)
+            }
+            
+            collectionView.reloadItems(at: [indexPath])
+        }
+    }

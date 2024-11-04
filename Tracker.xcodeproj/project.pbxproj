@@ -88,7 +88,7 @@
 		CEB3FEC82CA985FE00278628 = {
 			isa = PBXGroup;
 			children = (
-				CEB3FED32CA985FE00278628 /* tracker */,
+				CEBEAAE82CD8C18D007D18CC /* Tracker */,
 				CEB3FEED2CA985FF00278628 /* trackerTests */,
 				CEB3FEF72CA985FF00278628 /* trackerUITests */,
 				CEB3FED22CA985FE00278628 /* Products */,
@@ -103,6 +103,14 @@
 				CEB3FEF42CA985FF00278628 /* TrackerUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		CEBEAAE82CD8C18D007D18CC /* Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				CEB3FED32CA985FE00278628 /* tracker */,
+			);
+			path = Tracker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,7 +299,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 26HZCYGBR2;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = tracker/Info.plist;
+				INFOPLIST_FILE = Tracker/tracker/tracker/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -325,7 +333,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 26HZCYGBR2;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = tracker/Info.plist;
+				INFOPLIST_FILE = Tracker/tracker/tracker/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

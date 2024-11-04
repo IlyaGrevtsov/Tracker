@@ -10,5 +10,5 @@ import UIKit
 
 struct TrackerCategory {
     let titile: String
-    let trackerMassive: [Tracker]
+    let trackers: [Tracker]
 }

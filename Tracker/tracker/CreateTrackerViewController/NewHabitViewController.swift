@@ -9,14 +9,14 @@ import UIKit
 
 final class NewHabitViewController: UIViewController, UITextFieldDelegate, UICollectionViewDelegate {
     
-    private lazy var collectionView: UICollectionView = {
-        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-        view.register(.self, forCellWithReuseIdentifier: "cell")
-        view.dataSource = self
-        view.delegate = self
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+//    private lazy var collectionView: UICollectionView = {
+//        let view = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+//        view.register(.self, forCellWithReuseIdentifier: "cell")
+//        view.dataSource = self
+//        view.delegate = self
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
     
     private let scrollView = UIScrollView()
     private let containerView = UIView()
@@ -187,6 +187,15 @@ extension NewHabitViewController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.row == 1 {
+            let scheduleView = ScheduleViewController()
+            scheduleView.navigationItem.title = "Расписание"
+            let navigationController = UINavigationController(rootViewController: scheduleView)
+            navigationController.isNavigationBarHidden = false
+            self.present(navigationController, animated: true, completion: nil)
+            
+            
+        }
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
@@ -200,15 +209,9 @@ extension NewHabitViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
 }
-extension NewHabitViewController: UICollectionViewDataSource, UICollectionViewFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
+extension NewHabitViewController: ScheduleViewControllerDelegate {
+    func didSelectSchedule(_ day: [weekDay: Bool]) {
+        selectedDays = day
+        tableView.reloadData()
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
-    }
-    
-    
 }
