@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScheduleViewCell: UITableViewCell {
+final class ScheduleViewCell: UITableViewCell {
     let switchView = UISwitch()
     private let titleLabel = UILabel()
     static let reuseIdentifier = "ScheduleTableViewCell"
@@ -15,10 +15,10 @@ class ScheduleViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupCell()
     }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     private func setupCell() {
         backgroundColor = Colors.textFieldBackground
         switchView.onTintColor = Colors.switchViewColor

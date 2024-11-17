@@ -15,13 +15,13 @@ protocol TrackerViewCellDelegate: AnyObject {
 
 
 final class TrackerCollectionViewCell: UICollectionViewCell {
-
+    //MARK: - Constant
     static let cellIdentifier: String = "TrakerVcCell"
-     let labelEmoji =  UILabel()
-     let completionButton = UIButton()
-     let nameLabel = UILabel()
-     let colorOfCellView = UIView()
-     let counterDaysLabel = UILabel()
+    let labelEmoji =  UILabel()
+    let completionButton = UIButton()
+    let nameLabel = UILabel()
+    let colorOfCellView = UIView()
+    let counterDaysLabel = UILabel()
     
     private var trackersIsCompleted = false
     private var trackerId: UUID?
@@ -41,7 +41,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         setupNameLabel()
         setupCounterDaysLabel()
         setupCompletionButton()
-        constraintsSetup()
+        constraint()
     }
     
     private func setupEmojiLabel() {
@@ -67,42 +67,6 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         completionButton.tintColor = .white
         completionButton.addTarget(self, action: #selector(completionButtonTapped), for: .touchUpInside)
     }
-    private func constraintsSetup () {
-        contentView.backgroundColor = .clear
-        colorOfCellView.layer.cornerRadius = 16
-        
-        [labelEmoji, nameLabel, completionButton, counterDaysLabel, colorOfCellView].forEach {
-            contentView.addSubview($0)
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-        
-        NSLayoutConstraint.activate([
-            colorOfCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            colorOfCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            colorOfCellView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            colorOfCellView.heightAnchor.constraint(equalToConstant: 90),
-            
-            labelEmoji.topAnchor.constraint(equalTo: colorOfCellView.topAnchor, constant: 12),
-            labelEmoji.leadingAnchor.constraint(equalTo: colorOfCellView.leadingAnchor, constant: 12),
-            labelEmoji.heightAnchor.constraint(equalToConstant: 24),
-            labelEmoji.widthAnchor.constraint(equalToConstant: 24),
-            
-            nameLabel.leadingAnchor.constraint(equalTo: colorOfCellView.leadingAnchor, constant: 12),
-            nameLabel.trailingAnchor.constraint(equalTo: colorOfCellView.trailingAnchor, constant: -12),
-            nameLabel.bottomAnchor.constraint(equalTo: colorOfCellView.bottomAnchor, constant: -12),
-            
-            completionButton.trailingAnchor.constraint(equalTo: colorOfCellView.trailingAnchor, constant: -12),
-            completionButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            completionButton.heightAnchor.constraint(equalToConstant: 34),
-            completionButton.widthAnchor.constraint(equalToConstant: 34),
-            
-            counterDaysLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-            counterDaysLabel.trailingAnchor.constraint(equalTo: completionButton.leadingAnchor, constant: -8),
-            counterDaysLabel.centerYAnchor.constraint(equalTo: completionButton.centerYAnchor),
-            
-        ])
-    }
-    
     
     func configure (
         with tracker: Tracker,
@@ -120,7 +84,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         completionButton.backgroundColor = tracker.color
         labelEmoji.text = tracker.emoji
         
-        let imageName = trackersIsCompleted ? "checkmark.circle.fill" : "plus"
+        let imageName = trackersIsCompleted ? "checkmark" : "plus"
         if let image = UIImage(systemName: imageName) {
             completionButton.setImage(image, for: .normal)
         }
@@ -153,12 +117,49 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         case UIImage(systemName: "plus"):
             colorOfCellView.backgroundColor = tracker.color
         case UIImage(systemName: "checkmark"):
-            colorOfCellView.backgroundColor = tracker.color.withAlphaComponent(0.3)
+            completionButton.backgroundColor = tracker.color.withAlphaComponent(0.3)
         default:
             break
         }
-        
     }
+    //MARK: - Constraint
+    private func constraint()  {
+        contentView.backgroundColor = .clear
+        colorOfCellView.layer.cornerRadius = 16
+        
+        [colorOfCellView, labelEmoji, nameLabel, completionButton, counterDaysLabel].forEach {
+            contentView.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        NSLayoutConstraint.activate([
+            
+            colorOfCellView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            colorOfCellView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            colorOfCellView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            colorOfCellView.heightAnchor.constraint(equalToConstant: 90),
+            
+            labelEmoji.topAnchor.constraint(equalTo: colorOfCellView.topAnchor, constant: 12),
+            labelEmoji.leadingAnchor.constraint(equalTo: colorOfCellView.leadingAnchor, constant: 12),
+            labelEmoji.heightAnchor.constraint(equalToConstant: 24),
+            labelEmoji.widthAnchor.constraint(equalToConstant: 24),
+            
+            nameLabel.leadingAnchor.constraint(equalTo: colorOfCellView.leadingAnchor, constant: 12),
+            nameLabel.trailingAnchor.constraint(equalTo: colorOfCellView.trailingAnchor, constant: -12),
+            nameLabel.bottomAnchor.constraint(equalTo: colorOfCellView.bottomAnchor, constant: -12),
+            
+            completionButton.trailingAnchor.constraint(equalTo: colorOfCellView.trailingAnchor, constant: -12),
+            completionButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            completionButton.heightAnchor.constraint(equalToConstant: 34),
+            completionButton.widthAnchor.constraint(equalToConstant: 34),
+            
+            counterDaysLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            counterDaysLabel.trailingAnchor.constraint(equalTo: completionButton.leadingAnchor, constant: -8),
+            counterDaysLabel.centerYAnchor.constraint(equalTo: completionButton.centerYAnchor),
+        ])
+    }
+    
+    //MARK: -Target
     
     @objc func completionButtonTapped() {
         guard let trackerId = trackerId, let indexPath = indexPath else {
@@ -166,9 +167,9 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
             return
         }
         if trackersIsCompleted {
-            delegate?.completeTracker(id: trackerId, at: indexPath)
-        } else {
             delegate?.uncompleteTracker(id: trackerId, at: indexPath)
+        } else {
+            delegate?.completeTracker(id: trackerId, at: indexPath)
         }
     }
 }

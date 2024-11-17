@@ -8,13 +8,13 @@
 import UIKit
 
 final class NewHabitTableViewController: UITableViewCell {
-
+    
     static let reuseIdentifier = "NewHabitTableViewCell"
     private let scheduleLabel = UILabel()
     private let categoryLabel = UILabel()
     private let stackView = UIStackView()
     private let chevronImage = UIImageView(image: UIImage(systemName: "chevron.right"))
-
+    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -39,7 +39,7 @@ final class NewHabitTableViewController: UITableViewCell {
         
         contentView.addSubview(stackView)
         contentView.addSubview(chevronImage)
-       
+        
         [scheduleLabel, categoryLabel, chevronImage, stackView].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
         
         NSLayoutConstraint.activate([

@@ -33,17 +33,6 @@ final class ScheduleViewController: UIViewController {
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
     }
     
-    @objc func doneButtonTapped() {
-        delegate?.didSelectSchedule(selecter)
-        dismiss(animated: true, completion: nil)
-    }
-    @objc func configSwitchView (sender: UISwitch) {
-        guard let cell = sender.superview?.superview as? ScheduleViewCell else { return }
-        let indexPath = scheduleTable.indexPath(for: cell)
-        
-        let dayName = weekDay(rawValue: indexPath!.row)!
-        selecter[dayName] = sender.isOn
-    }
     private func setupTable() {
         scheduleTable.backgroundColor = Colors.textFieldBackground
         scheduleTable.layer.cornerRadius = 16
@@ -53,7 +42,7 @@ final class ScheduleViewController: UIViewController {
         scheduleTable.frame = self.view.bounds
         scheduleTable.register(ScheduleViewCell.self, forCellReuseIdentifier: ScheduleViewCell.reuseIdentifier)
     }
-    
+    //MARK: -constraint
     private func constraints() {
         doneButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(doneButton)
@@ -73,9 +62,21 @@ final class ScheduleViewController: UIViewController {
             scheduleTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24)
         ])
     }
+    //MARK: -Target
+    @objc func doneButtonTapped() {
+        delegate?.didSelectSchedule(selecter)
+        dismiss(animated: true, completion: nil)
+    }
+    @objc func configSwitchView (sender: UISwitch) {
+        guard let cell = sender.superview?.superview as? ScheduleViewCell else { return }
+        let indexPath = scheduleTable.indexPath(for: cell)
+        
+        let dayName = weekDay(rawValue: indexPath!.row)!
+        selecter[dayName] = sender.isOn
+    }
 }
-    
-    // MARK: - Table view data source
+
+// MARK: - Table view extension
 extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,8 +86,8 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleTableViewCell", for: indexPath) as? ScheduleViewCell else { return UITableViewCell() }
         cell.switchView.addTarget(self,
-                                   action: #selector(configSwitchView),
-                                   for: .valueChanged)
+                                  action: #selector(configSwitchView),
+                                  for: .valueChanged)
         cell.configureCell(title: dayName[indexPath.row],
                            isSwitchOn: selecter[weekDay.allCases[indexPath.row]] ?? false)
         cell.selectionStyle = .none

@@ -41,7 +41,7 @@ final class CollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super .init(frame: frame)
-        setup()
+        constraint()
     }
     
     required init?(coder: NSCoder) {
@@ -71,7 +71,7 @@ final class CollectionViewCell: UICollectionViewCell {
         colorLabel.layer.borderColor = model.cgColor
     }
     
-    private func setup() {
+    private func constraint()  {
         contentView.backgroundColor = .clear
         
         [emojiView, emojiLabel, colorView, colorLabel].forEach {
@@ -97,6 +97,6 @@ final class CollectionViewCell: UICollectionViewCell {
             colorView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             colorView.widthAnchor.constraint(equalToConstant: 40),
             colorView.heightAnchor.constraint(equalToConstant: 40)
-            ])
+        ])
     }
 }

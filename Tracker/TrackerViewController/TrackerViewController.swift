@@ -8,7 +8,7 @@ import Foundation
 import UIKit
 
 final class TrackerViewController: UIViewController {
-    
+    //MARK: -Constant
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd.MM.yyyy"
@@ -45,7 +45,7 @@ final class TrackerViewController: UIViewController {
         return searchBar
     }()
     
-     lazy var datePicker: UIDatePicker = {
+    lazy var datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .compact
         datePicker.datePickerMode = .date
@@ -62,16 +62,7 @@ final class TrackerViewController: UIViewController {
     }()
     
     private let placeholderImage = UIImageView()
-    
-    private func setupPlaceholderImage() {
-        placeholderImage.image = UIImage(named: "star")!
-        placeholderImage.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(placeholderImage)
-        NSLayoutConstraint.activate([ placeholderImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                      placeholderImage.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
-    }
-    
-    
+    //MARK: -Function
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -81,6 +72,14 @@ final class TrackerViewController: UIViewController {
         setupCollectionView()
         setupTrackersCollectionView()
         updateUI()
+    }
+    
+    private func setupPlaceholderImage() {
+        placeholderImage.image = UIImage(named: "star")!
+        placeholderImage.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(placeholderImage)
+        NSLayoutConstraint.activate([ placeholderImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                      placeholderImage.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
     }
     
     private func updateUI() {
@@ -101,7 +100,7 @@ final class TrackerViewController: UIViewController {
         placeholderImage.isHidden = false
         collectionView.isHidden = true
     }
-
+    
     
     private func setupNavigationBar() {
         addButton.tintColor = .black
@@ -136,7 +135,7 @@ final class TrackerViewController: UIViewController {
     }
     //MARK: -CollectionView
     
-
+    
     private func setupCollectionView() {
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -212,7 +211,7 @@ final class TrackerViewController: UIViewController {
         updateUI()
     }
 }
-//-MARK: -Extension
+//-MARK: -Extension Collection
 extension TrackerViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         currentCategories.count
@@ -331,7 +330,7 @@ extension TrackerViewController: TrackerViewCellDelegate {
     }
 }
 extension TrackerViewController: NewTrackerViewControllerDelegate {
-   
+    
     func setDateForNewTracker() -> String {
         return dateFormatter.string(from: currentDate)
     }

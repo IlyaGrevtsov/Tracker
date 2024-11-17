@@ -22,10 +22,10 @@ final class CreateTrackerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setup ()
+        constraint()
     }
-    
-    private func setup () {
+    //MARK: Constraint
+    private func constraint() {
         habitButton.layer.cornerRadius = 16
         habitButton.setTitle("Привычка", for: .normal)
         habitButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
@@ -58,7 +58,7 @@ final class CreateTrackerViewController: UIViewController {
             IrregularEventButton.heightAnchor.constraint(equalToConstant: 60),
         ])
     }
-    
+    //MARK: -Target
     @objc private func habitButtonTapped () {
         let newHabitViewController = NewHabitViewController()
         newHabitViewController.delegate = delegate

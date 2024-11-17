@@ -35,6 +35,6 @@ final class TabBar: UITabBarController {
             tabBarBord.trailingAnchor.constraint(equalTo: tabBar.trailingAnchor),
             tabBarBord.topAnchor.constraint(equalTo: tabBar.topAnchor),
             tabBarBord.heightAnchor.constraint(equalToConstant: 0.5)
-            ])
+        ])
     }
 }

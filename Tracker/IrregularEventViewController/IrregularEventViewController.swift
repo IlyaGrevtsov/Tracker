@@ -144,7 +144,7 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
             textFiled.widthAnchor.constraint(equalToConstant: 343),
             textFiled.heightAnchor.constraint(equalToConstant: 75),
             
-            tableView.heightAnchor.constraint(equalToConstant: 150),
+            tableView.heightAnchor.constraint(equalToConstant: 75),
             tableView.topAnchor.constraint(equalTo: textFiled.bottomAnchor, constant: 24),
             tableView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             tableView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
@@ -165,7 +165,7 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
             cancelButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             cancelButton.bottomAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.bottomAnchor),
             cancelButton.heightAnchor.constraint(equalToConstant: 60),
-        
+            
         ])
     }
     

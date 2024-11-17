@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HeaderCollectionReusableView: UICollectionReusableView {
+final class HeaderCollectionReusableView: UICollectionReusableView {
     
     static let reuseIdentifier = "Header"
     lazy var headerLabel: UILabel = {
@@ -19,14 +19,14 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super .init(frame: frame)
-        setupTitleLabel()
+        constraint()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupTitleLabel() {
+    private func constraint()  {
         addSubview(headerLabel)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         
