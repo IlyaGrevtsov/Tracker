@@ -41,6 +41,7 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
+        hideKeyboard()
     }
     
     //MARK: -setupUI
@@ -120,6 +121,16 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.reuseIdentifier)
     }
+     func hideKeyboard() {
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
+        view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = false
+    }
+     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
     
     
     //MARK: -Constainer
@@ -182,7 +193,7 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: -target
     
-    @objc func createButtonTapped(){
+    @objc private func createButtonTapped(){
         guard let newTrackerName = textFiled.text else { return }
         guard let date = delegate?.setDateForNewTracker() else {
             return assertionFailure("Date is nill")
@@ -211,15 +222,17 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @objc func cancelButtonTapped() {
+    @objc private func cancelButtonTapped() {
         dismiss(animated: true, completion: nil)
     }
     
     @objc private func textFieldDidChange (_ textField: UITextField) {
         let hasText = !(textField.text?.isEmpty ?? true)
+        
         createButton.isEnabled = hasText
         createButton.backgroundColor = hasText ? .black : Colors.buttonInactive
     }
+
 }
 
 
@@ -266,6 +279,7 @@ extension NewHabitViewController: UITableViewDataSource, UITableViewDelegate{
             self.present(navigationController, animated: true, completion: nil)
         }
     }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75
     }

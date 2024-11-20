@@ -35,6 +35,7 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
         super.viewDidLoad()
         view.backgroundColor = .white
         setupUI()
+        hideKeyboard()
     }
     
     //MARK: -setupUI
@@ -112,6 +113,19 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.reuseIdentifier)
     }
+    
+    func hideKeyboard() {
+       let tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
+       view.addGestureRecognizer(tapGesture)
+       tapGesture.cancelsTouchesInView = false
+   }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+       textField.resignFirstResponder()
+       return true
+   }
+
+
+
     //MARK: -Constainer
     private func constraint () {
         view.addSubview(scrollView)
@@ -196,6 +210,7 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
         createButton.isEnabled = hasText
         createButton.backgroundColor = hasText ? .black : Colors.buttonInactive
     }
+
 }
 //MARK: -EXTENSION
 
