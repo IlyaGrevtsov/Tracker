@@ -78,8 +78,6 @@ final class TrackerViewController: UIViewController {
         placeholderImage.image = UIImage(named: "star")!
         placeholderImage.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(placeholderImage)
-        NSLayoutConstraint.activate([ placeholderImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                      placeholderImage.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)])
     }
     
     private func updateUI() {
@@ -99,6 +97,14 @@ final class TrackerViewController: UIViewController {
         placeHolderText.isHidden = false
         placeholderImage.isHidden = false
         collectionView.isHidden = true
+        
+        NSLayoutConstraint.activate([
+            placeholderImage.widthAnchor.constraint(equalToConstant: 80),
+            placeholderImage.heightAnchor.constraint(equalToConstant: 80 ),
+            placeholderImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            placeholderImage.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ]
+        )
     }
     
     
