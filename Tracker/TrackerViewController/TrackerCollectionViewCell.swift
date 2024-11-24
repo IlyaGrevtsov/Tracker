@@ -161,7 +161,7 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
     
     //MARK: -Target
     
-    @objc func completionButtonTapped() {
+    @objc private func completionButtonTapped() {
         guard let trackerId = trackerId, let indexPath = indexPath else {
             assertionFailure("no tracker and no index")
             return

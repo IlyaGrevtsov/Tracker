@@ -41,7 +41,7 @@ final class ScheduleViewCell: UITableViewCell {
             switchView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
     }
-    func configureCell(title: String, isSwitchOn: Bool) {
+     func configureCell(title: String, isSwitchOn: Bool) {
         titleLabel.text = title
         switchView.isOn = isSwitchOn
     }

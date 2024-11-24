@@ -7,7 +7,7 @@
 
 import UIKit
 protocol ScheduleViewControllerDelegate: AnyObject {
-    func didSelectSchedule(_ day: [weekDay: Bool])
+    func didSelectSchedule(_ day: [WeekDay: Bool])
 }
 final class ScheduleViewController: UIViewController {
     
@@ -21,7 +21,7 @@ final class ScheduleViewController: UIViewController {
     private let dayName = Constant.dayName
     private let doneButton = UIButton()
     private let scheduleTable = UITableView()
-    var selecter: [weekDay: Bool] = [:]
+    var selecter: [WeekDay: Bool] = [:]
     weak var delegate : ScheduleViewControllerDelegate?
     
     private func setupDoneButton() {
@@ -63,15 +63,15 @@ final class ScheduleViewController: UIViewController {
         ])
     }
     //MARK: -Target
-    @objc func doneButtonTapped() {
+    @objc private func doneButtonTapped() {
         delegate?.didSelectSchedule(selecter)
         dismiss(animated: true, completion: nil)
     }
-    @objc func configSwitchView (sender: UISwitch) {
+    @objc private func configSwitchView (sender: UISwitch) {
         guard let cell = sender.superview?.superview as? ScheduleViewCell else { return }
         let indexPath = scheduleTable.indexPath(for: cell)
         
-        let dayName = weekDay(rawValue: indexPath!.row)!
+        let dayName = WeekDay(rawValue: indexPath!.row)!
         selecter[dayName] = sender.isOn
     }
 }
@@ -89,7 +89,7 @@ extension ScheduleViewController: UITableViewDataSource, UITableViewDelegate {
                                   action: #selector(configSwitchView),
                                   for: .valueChanged)
         cell.configureCell(title: dayName[indexPath.row],
-                           isSwitchOn: selecter[weekDay.allCases[indexPath.row]] ?? false)
+                           isSwitchOn: selecter[WeekDay.allCases[indexPath.row]] ?? false)
         cell.selectionStyle = .none
         return cell
     }

@@ -23,7 +23,7 @@ struct Tracker {
         self.schedule = schedule
     }
 }
-enum weekDay: Int, CaseIterable {
+enum WeekDay: Int, CaseIterable {
     case monday = 1
     case tuersday = 2
     case wednesday = 3

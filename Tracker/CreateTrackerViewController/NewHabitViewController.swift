@@ -25,10 +25,12 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
     private let tableView = UITableView()
     private let categories = ["Категория", "Расписание"]
     private let cellIdentifier = "cell"
-    var selectedDays: [weekDay: Bool] = [:]
+    var selectedDays: [WeekDay: Bool] = [:]
     private let trackerType: TrackerType = .habit
     private var selectedColor: UIColor?
     private var selectedEmoji: String?
+    private var color: UIColor = .clear
+    private var emoji = ""
     private let collectionView = UICollectionView (
         frame: .zero,
         collectionViewLayout: UICollectionViewFlowLayout()
@@ -53,6 +55,7 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
         setupScrollView()
         setupTableView()
         constraint()
+        createButtonIsEnable()
     }
     private func setupScrollView() {
         scrollView.isScrollEnabled = true
@@ -120,6 +123,12 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
         collectionView.dataSource = self
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.reuseIdentifier)
+    }
+    private func createButtonIsEnable() {
+        let hasText = textFiled.text?.isEmpty == false
+        let hasButton = color != .clear && !emoji.isEmpty && hasText
+        createButton.isEnabled = hasButton
+        createButton.backgroundColor = hasButton ? .black : Colors.buttonInactive
     }
      func hideKeyboard() {
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
@@ -227,10 +236,7 @@ final class NewHabitViewController: UIViewController, UITextFieldDelegate {
     }
     
     @objc private func textFieldDidChange (_ textField: UITextField) {
-        let hasText = !(textField.text?.isEmpty ?? true)
-        
-        createButton.isEnabled = hasText
-        createButton.backgroundColor = hasText ? .black : Colors.buttonInactive
+        createButtonIsEnable()
     }
 
 }
@@ -255,7 +261,7 @@ extension NewHabitViewController: UITableViewDataSource, UITableViewDelegate{
             let selectedDaysArray = selectedDays.filter { $0.value }.map { $0.key }
             if selectedDaysArray.isEmpty {
                 cell.setSelectedDays("")
-            } else if selectedDaysArray.count == weekDay.allCases.count {
+            } else if selectedDaysArray.count == WeekDay.allCases.count {
                 cell.setSelectedDays("Каждый день")
             } else {
                 let selectedDaysString = selectedDaysArray.map { $0.stringValue }.joined(separator: ", ")
@@ -391,17 +397,20 @@ extension NewHabitViewController: UICollectionViewDelegate {
         switch indexPath.section {
         case 0:
             selectedEmoji = Constant.emoji[indexPath.row]
+            emoji = Constant.emoji[indexPath.row]
         case 1:
             selectedColor = Constant.colorSelection[indexPath.row]
+            color = selectedColor!
         default:
             break
         }
+        createButtonIsEnable()
     }
 }
 
 
 extension NewHabitViewController: ScheduleViewControllerDelegate {
-    func didSelectSchedule(_ day: [weekDay: Bool]) {
+    func didSelectSchedule(_ day: [WeekDay: Bool]) {
         selectedDays = day
         tableView.reloadData()
     }

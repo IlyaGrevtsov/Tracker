@@ -21,8 +21,11 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
     private let createButton = UIButton()
     
     private let tableView = UITableView()
+    private var name = ""
+    private var color: UIColor = .clear
+    private var emoji = ""
     private let categories = ["Категория"]
-    var selectedDays: [weekDay: Bool] = [:]
+    var selectedDays: [WeekDay: Bool] = [:]
     private var selectedColor: UIColor?
     private var selectedEmoji: String?
     
@@ -47,6 +50,8 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
         setupTableView()
         constraint()
         setupCollectionView()
+        createButtonIsEnable()
+        
     }
     private func setupScrollView() {
         scrollView.isScrollEnabled = true
@@ -66,6 +71,8 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
         textFiled.leftViewMode = .always
         
         textFiled.addTarget(self, action: #selector (textFieldDidChange), for: .editingChanged)
+        
+        createButtonIsEnable()
     }
     private func setupTableView() {
         tableView.delegate = self
@@ -113,7 +120,13 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
         collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.identifier)
         collectionView.register(CollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionViewHeader.reuseIdentifier)
     }
-    
+    private func createButtonIsEnable() {
+        let hasText = textFiled.text?.isEmpty == false
+        let hasButton = color != .clear && !emoji.isEmpty && hasText
+        createButton.isEnabled = hasButton
+        createButton.backgroundColor = hasButton ? .black : Colors.buttonInactive
+    }
+        
     func hideKeyboard() {
        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
        view.addGestureRecognizer(tapGesture)
@@ -186,7 +199,7 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
     //MARK: -target
     
     @objc private func createButtonTapped() {
-        let allWeekDays: [String] = weekDay.allCases.map { $0.stringValue }
+        let allWeekDays: [String] = WeekDay.allCases.map { $0.stringValue }
         
         guard let newTrackerName = textFiled.text else { return }
         let newTracker = Tracker(
@@ -206,9 +219,7 @@ final class IrregularEventViewController: UIViewController, UITextFieldDelegate 
     }
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
-        let hasText = textField.text?.isEmpty == false
-        createButton.isEnabled = hasText
-        createButton.backgroundColor = hasText ? .black : Colors.buttonInactive
+        createButtonIsEnable()
     }
 
 }
@@ -340,10 +351,13 @@ extension IrregularEventViewController: UICollectionViewDelegate {
         switch indexPath.section {
         case 0:
             selectedEmoji = Constant.emoji[indexPath.row]
+            emoji = Constant.emoji[indexPath.row]
         case 1:
             selectedColor = Constant.colorSelection[indexPath.row]
+            color = selectedColor!
         default:
             break
         }
+        createButtonIsEnable()
     }
 }

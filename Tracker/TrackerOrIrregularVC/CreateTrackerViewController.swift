@@ -38,7 +38,7 @@ final class CreateTrackerViewController: UIViewController {
         IrregularEventButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
         IrregularEventButton.tintColor = .white
         IrregularEventButton.backgroundColor = .black
-        IrregularEventButton.addTarget(self, action: #selector (IrregularEventButtonTapped), for: .touchUpInside)
+        IrregularEventButton.addTarget(self, action: #selector (irregularEventButtonTapped), for: .touchUpInside)
         
         view.addSubview(habitButton)
         view.addSubview(IrregularEventButton)
@@ -67,7 +67,7 @@ final class CreateTrackerViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: newHabitViewController)
         present(navigationController, animated: true, completion: nil)
     }
-    @objc private func IrregularEventButtonTapped () {
+    @objc private func irregularEventButtonTapped () {
         let irregularEventViewController = IrregularEventViewController()
         irregularEventViewController.delegate = delegate
         

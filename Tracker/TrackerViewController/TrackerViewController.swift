@@ -183,7 +183,7 @@ final class TrackerViewController: UIViewController {
         isSearching = true
         let calendar = Calendar.current
         let selectedWeekDay = calendar.component(.weekday, from: currentDate) - 1
-        let selectedDayString = weekDay(rawValue: selectedWeekDay)?.stringValue ?? ""
+        let selectedDayString = WeekDay(rawValue: selectedWeekDay)?.stringValue ?? ""
         
         currentCategories = categories.compactMap { category in
             let filteredTrackers = category.trackers.filter { tracker in
@@ -204,7 +204,7 @@ final class TrackerViewController: UIViewController {
         let navigationController = UINavigationController(rootViewController: createTrackerViewController)
         present(navigationController, animated: true, completion: nil)
     }
-    @objc func datePickerValueChanged (_ sender: UIDatePicker) {
+    @objc private func datePickerValueChanged (_ sender: UIDatePicker) {
         currentDate = sender.date
         isSearching = false
         filteredTrackers()
