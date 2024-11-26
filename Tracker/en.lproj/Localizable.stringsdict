@@ -16,17 +16,13 @@
 			<string></string>
 			<key>one</key>
 			<string></string>
+			<key>two</key>
+			<string></string>
+			<key>few</key>
+			<string></string>
+			<key>many</key>
+			<string></string>
 			<key>other</key>
-			<string></string>
-			<key>1</key>
-			<string>день</string>
-			<key>2, 3, 4</key>
-			<string>дня</string>
-			<key>остальные</key>
-			<string>дня</string>
-			<key>New item - 4</key>
-			<string></string>
-			<key>New item - 5</key>
 			<string></string>
 		</dict>
 	</dict>
