@@ -186,7 +186,6 @@ final class TrackerViewController: UIViewController {
     }
     
     private func filteredTrackers() {
-        isSearching = true
         let calendar = Calendar.current
         let selectedWeekDay = calendar.component(.weekday, from: currentDate) - 2
         let selectedDayString = WeekDay(rawValue: selectedWeekDay)?.stringValue ?? ""
@@ -212,7 +211,6 @@ final class TrackerViewController: UIViewController {
     }
     @objc private func datePickerValueChanged (_ sender: UIDatePicker) {
         currentDate = sender.date
-        isSearching = false
         filteredTrackers()
         updateUI()
     }

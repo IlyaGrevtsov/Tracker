@@ -88,29 +88,19 @@ final class TrackerCollectionViewCell: UICollectionViewCell {
         if let image = UIImage(systemName: imageName) {
             completionButton.setImage(image, for: .normal)
         }
-        counterDaysLabel.text = counterofCompletedDays(completedDays)
+        counterDaysLabel.text = counterofCompletedDays(UInt(completedDays))
         dayForCompleted(with: tracker)
     }
     
-    private func counterofCompletedDays(_ count: Int) -> String {
-        let dayForm = ["дней", "день", "дня"]
-        let remainder10 = count % 10
-        let remainder100 = count % 100
-        let indexForm: Int
+    private func counterofCompletedDays(_ count: UInt) -> String {
         
-        if remainder100 >= 11 && remainder100 <= 14 {
-            indexForm = 0
-        } else {
-            switch remainder10 {
-            case 1:
-                indexForm = 1
-            case 2...4:
-                indexForm = 2
-            default:
-                indexForm = 0
-            }
-        }
-        return ("\(count) \(dayForm[indexForm])")
+        let formatString: String = NSLocalizedString("Day сount format",
+                                                      comment: "Day format in Localized.stringsdict")
+        
+        let resultString: String = String.localizedStringWithFormat(formatString, count)
+        
+        return resultString;
+        
     }
     private func dayForCompleted (with tracker: Tracker) {
         switch completionButton.currentImage {

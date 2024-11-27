@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		CEB06ED42CEA6C1C00E8E159 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB06ED32CEA6C1C00E8E159 /* CategoriesViewController.swift */; };
-		CEB06ED72CEC732500E8E159 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CEB06ED52CEC732500E8E159 /* Localizable.stringsdict */; };
+		CEB06EE02CF709A300E8E159 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = CEB06EDE2CF709A300E8E159 /* Localizable.stringsdict */; };
+		CEB06F432CF70E0300E8E159 /* title.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEB06F412CF70E0300E8E159 /* title.strings */; };
 		CEB3DF072CE1048F00FECEBD /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3DF062CE1048F00FECEBD /* CollectionViewCell.swift */; };
 		CEB3DF092CE1222200FECEBD /* CollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3DF082CE1222200FECEBD /* CollectionViewHeader.swift */; };
 		CEBEAB7C2CD8C920007D18CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEBEAB6A2CD8C920007D18CC /* Assets.xcassets */; };
@@ -56,7 +57,9 @@
 /* Begin PBXFileReference section */
 		CE0AA4F52CD8CDC000860319 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEB06ED32CEA6C1C00E8E159 /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
-		CEB06ED62CEC732500E8E159 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		CEB06F3F2CF70D5C00E8E159 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		CEB06F402CF70D5C00E8E159 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		CEB06F422CF70E0300E8E159 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/title.strings; sourceTree = "<group>"; };
 		CEB3DF062CE1048F00FECEBD /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		CEB3DF082CE1222200FECEBD /* CollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewHeader.swift; sourceTree = "<group>"; };
 		CEB3FED12CA985FE00278628 /* Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +158,8 @@
 				CEF1EC272CD95B030069EB77 /* IrregularEventViewController */,
 				CEBEAB6F2CD8C920007D18CC /* Support */,
 				CEBEAB662CD8C920007D18CC /* Model */,
+				CEB06EDE2CF709A300E8E159 /* Localizable.stringsdict */,
+				CEB06F412CF70E0300E8E159 /* title.strings */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -195,7 +200,6 @@
 				CEBEAB6B2CD8C920007D18CC /* Constant.swift */,
 				CEBEAB6D2CD8C920007D18CC /* LaunchScreen.storyboard */,
 				CEBEAB6E2CD8C920007D18CC /* SceneDelegate.swift */,
-				CEB06ED52CEC732500E8E159 /* Localizable.stringsdict */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -352,6 +356,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = CEB3FEC82CA985FE00278628;
 			minimizedProjectReferenceProxies = 1;
@@ -374,7 +379,8 @@
 			files = (
 				CEBEAB7C2CD8C920007D18CC /* Assets.xcassets in Resources */,
 				CEBEAB7D2CD8C920007D18CC /* LaunchScreen.storyboard in Resources */,
-				CEB06ED72CEC732500E8E159 /* Localizable.stringsdict in Resources */,
+				CEB06EE02CF709A300E8E159 /* Localizable.stringsdict in Resources */,
+				CEB06F432CF70E0300E8E159 /* title.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,18 +462,27 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CEB06ED52CEC732500E8E159 /* Localizable.stringsdict */ = {
+		CEB06EDE2CF709A300E8E159 /* Localizable.stringsdict */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CEB06ED62CEC732500E8E159 /* en */,
+				CEB06F402CF70D5C00E8E159 /* ru */,
 			);
 			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
+		CEB06F412CF70E0300E8E159 /* title.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEB06F422CF70E0300E8E159 /* en */,
+			);
+			name = title.strings;
 			sourceTree = "<group>";
 		};
 		CEBEAB6D2CD8C920007D18CC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				CEBEAB6C2CD8C920007D18CC /* Base */,
+				CEB06F3F2CF70D5C00E8E159 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -548,6 +563,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -611,6 +627,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
